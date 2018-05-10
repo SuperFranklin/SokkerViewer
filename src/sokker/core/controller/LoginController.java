@@ -16,8 +16,6 @@ import sokker.core.entity.Player;
 @Controller
 public class LoginController{
 
-    //@Autowired
-    PlayerDao playerDao;
     @GetMapping("/")
     public String showRegistrationForm(){
         return "loginForm";
@@ -26,14 +24,6 @@ public class LoginController{
     @PostMapping("/")
     public String loginProcess( HttpServletRequest request, Model model ){
         String login = request.getParameter( "login" );
-        Player p = new Player();
-        p.setCountry( "sda" );
-        p.setHeight( 123 );
-        p.setName( "sada" );
-        p.setPID( 21 );
-        p.setWeight( 12 );
-        p.setSurename( "szczuru" );
-        playerDao.addPlayer( p );
         model.addAttribute( "login", login );
         return "loginSuccess";
     }
