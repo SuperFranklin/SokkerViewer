@@ -1,0 +1,16 @@
+*.class
+# Log file
+*.log
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+/target/
+*.prefs
+*.component
+*.container
+*.classpath
+*.tern-project
+*.project
