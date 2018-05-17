@@ -14,11 +14,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import main.java.logic.dao.PlayerDao;
 import main.java.logic.entity.Player;
-import test.java.configuration.TestContext;
+import test.java.configuration.TestConfiguration;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= { TestContext.class })
+@ContextConfiguration(classes= { TestConfiguration.class })
 public class PlayerDaoTest {
 
     @Autowired

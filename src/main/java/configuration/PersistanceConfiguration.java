@@ -31,7 +31,7 @@ import static org.hibernate.cfg.Environment.*;
 @Configuration
 @EnableTransactionManagement
 @ComponentScans(value = {@ComponentScan("main.java") })
-public class AppConfig{
+public class PersistanceConfiguration{
 
     private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/sokker?useSSL=false";
