@@ -2,6 +2,7 @@
 package main.java.logic.dao;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -15,7 +16,7 @@ import main.java.logic.Interfaces.Identifiable;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class HibernateDaoImpl<T extends Identifiable> {
+public class HibernateDaoImpl<T extends Identifiable> implements HibernateDao<T>{
 
     private Class<T> clazz;
 
@@ -34,12 +35,16 @@ public class HibernateDaoImpl<T extends Identifiable> {
         return getCurrentSession().createQuery( "from " + clazz.getName() ).list();
     }
 
-    public void create( T entity ){
+    public void persist( T entity ){
         getCurrentSession().persist( entity );
     }
 
     public void update( T entity ){
         getCurrentSession().merge( entity );
+    }
+
+    public Serializable save( T entity ){
+        return getCurrentSession().save( entity );
     }
 
     public void delete( T entity ){

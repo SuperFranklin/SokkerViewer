@@ -29,8 +29,8 @@ public class PlayerDaoTest {
     @Rollback(true)
     public void testAddAndGetPlayer()  {
         Player createdPlayer = preparePlayer();
-        playerDao.addPlayer( createdPlayer );
-        assertEquals( playerDao.getPlayer( createdPlayer.getPID() ) , createdPlayer );
+        playerDao.persist( createdPlayer );
+        assertEquals( playerDao.findOne( createdPlayer.getId() ) , createdPlayer );
     }
     
     private Player preparePlayer() {
