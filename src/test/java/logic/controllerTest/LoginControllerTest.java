@@ -1,16 +1,15 @@
 
-package test;
+package test.java.logic.controllerTest;
 
 
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import sokker.core.controller.LoginController;
+import main.java.logic.controller.LoginController;
 
 public class LoginControllerTest{
 

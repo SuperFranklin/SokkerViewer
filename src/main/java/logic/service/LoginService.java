@@ -1,4 +1,4 @@
-package sokker.core.parsers;
+package main.java.logic.service;
 
 import org.springframework.web.reactive.function.client.WebClient;
 

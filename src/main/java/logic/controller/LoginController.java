@@ -1,5 +1,5 @@
 
-package sokker.core.controller;
+package main.java.logic.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +10,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import sokker.core.dao.PlayerDao;
-import sokker.core.entity.Player;
+import main.java.logic.dao.PlayerDao;
+import main.java.logic.entity.Player;
+import main.java.logic.service.LoginService;
+
+
 
 @Controller
 public class LoginController{
 
     @Autowired
-    PlayerDao playerDao;
+    LoginService loginService;
     @GetMapping("/")
     public String showRegistrationForm(){
         return "loginForm";
@@ -26,14 +29,9 @@ public class LoginController{
     @PostMapping("/")
     public String loginProcess( HttpServletRequest request, Model model ){
         String login = request.getParameter( "login" );
-        Player p = new Player();
-        p.setCountry( "sda" );
-        p.setHeight( 123 );
-        p.setName( "sada" );
-        p.setPID( 21 );
-        p.setWeight( 12 );
-        p.setSurename( "szczuru" );
-        playerDao.addPlayer( p );
+        String password = request.getParameter( "password" );
+
+        
         model.addAttribute( "login", login );
         return "loginSuccess";
     }
