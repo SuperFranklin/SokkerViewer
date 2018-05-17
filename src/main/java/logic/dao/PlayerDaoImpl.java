@@ -16,34 +16,6 @@ import main.java.logic.entity.Player;
 
 @Repository
 @Transactional
-public class PlayerDaoImpl extends HibernateDao<Player> implements PlayerDao{
+public class PlayerDaoImpl extends HibernateDaoImpl<Player> implements PlayerDao{
 
-    @Autowired
-    SessionFactory sessionFactory;
-
-    public void addPlayer( Player player ){
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save( player );
-    }
-
-    public Player getPlayer( Integer pid ){
-        Session currentSession = sessionFactory.getCurrentSession();
-        return currentSession.get( Player.class, pid );
-    }
-
-    public Collection<Player> getAllPlayers(){
-        Session curSession = sessionFactory.getCurrentSession();
-        Criteria criteria = curSession.createCriteria( Player.class );
-
-        return criteria.list();
-    }
-
-    public SessionFactory getSessionFactory(){
-        return sessionFactory;
-    }
-
-    @Autowired
-    public void setSessionFactory( SessionFactory sessionFactory ){
-        this.sessionFactory = sessionFactory;
-    }
 }

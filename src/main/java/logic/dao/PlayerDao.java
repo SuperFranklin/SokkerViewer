@@ -4,11 +4,7 @@ import java.util.Collection;
 
 import main.java.logic.entity.Player;
 
-public interface PlayerDao{
+public interface PlayerDao extends HibernateDao<Player>{
 
-    public void addPlayer( Player player );
 
-    public Player getPlayer( Integer pid );
-
-    public Collection<Player> getAllPlayers();
 }
