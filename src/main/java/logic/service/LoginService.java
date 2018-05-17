@@ -1,8 +1,8 @@
 package main.java.logic.service;
 
-import org.springframework.web.reactive.function.client.WebClient;
+import main.java.logic.utils.Result;
 
 public interface LoginService{
 
-    public void login(String login, String password);
+    public Result login(String login, String password);
 }

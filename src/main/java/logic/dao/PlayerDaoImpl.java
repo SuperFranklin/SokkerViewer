@@ -16,11 +16,11 @@ import main.java.logic.entity.Player;
 
 @Repository
 @Transactional
-public class PlayerDaoImpl implements PlayerDao{
+public class PlayerDaoImpl extends HibernateDao<Player> implements PlayerDao{
 
     @Autowired
     SessionFactory sessionFactory;
-    
+
     public void addPlayer( Player player ){
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save( player );
