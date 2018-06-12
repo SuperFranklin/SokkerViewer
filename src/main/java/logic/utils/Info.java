@@ -8,16 +8,15 @@ import main.java.logic.enums.ErrorType;
 
 @Getter
 @Setter
-public class Error{
+public class Info{
 
     private String message;
 
-    public Error(){
+    public Info(){
 
     }
 
-    public Error( String msg ){
+    public Info( String msg ){
         this.message = msg;
     }
-
 }

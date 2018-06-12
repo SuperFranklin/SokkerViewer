@@ -1,8 +1,10 @@
 package main.java.logic.service;
 
+import java.io.IOException;
+
 import main.java.logic.utils.Result;
 
 public interface LoginService{
 
-    public Result login(String login, String password);
+    public void loginAndInitData(String login, String password) throws IOException;
 }

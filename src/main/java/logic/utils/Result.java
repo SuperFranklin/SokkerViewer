@@ -9,6 +9,8 @@ public class Result<T> {
 
     private T response;
     private List<Error> errors = new ArrayList<>();
+    private List<Warning> warnings = new ArrayList<>();
+    private List<Info> infos = new ArrayList<>();
 
     public Result( T response ){
         this.response = response;

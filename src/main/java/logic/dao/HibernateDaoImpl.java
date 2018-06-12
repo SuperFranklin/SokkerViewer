@@ -5,17 +5,16 @@ package main.java.logic.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import main.java.logic.Interfaces.Identifiable;
 
 @Repository
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class HibernateDaoImpl<T extends Identifiable> implements HibernateDao<T>{
 
     private Class<T> clazz;
@@ -33,6 +32,10 @@ public class HibernateDaoImpl<T extends Identifiable> implements HibernateDao<T>
 
     public List<T> findAll(){
         return getCurrentSession().createQuery( "from " + clazz.getName() ).list();
+    }
+    
+    public void saveOrUpdate(T entity) {
+        getCurrentSession().saveOrUpdate( entity );
     }
 
     public void persist( T entity ){
