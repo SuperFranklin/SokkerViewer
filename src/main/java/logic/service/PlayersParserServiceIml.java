@@ -3,6 +3,7 @@ package main.java.logic.service;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -112,27 +113,17 @@ public class PlayersParserServiceIml implements PlayersParserService{
     private String[] extractSkills( String fragment ){
         String[] skills = new String[ 15 ];
 
-        int first = 0;
-        int last = 0;
-        int previous = 0;
-        for(int i = 0; i < 15; i++){
-            first = fragment.indexOf( "=", previous );
-            last = fragment.indexOf( ";", first );
-            if(i < 2){
-                previous = last;
-                // Two first lines does not contain data
-                continue;
-            }
-
-            if(i < 4){
-                skills[ i ] = ( String ) fragment.subSequence( first + 3, last - 1 );
-            }else{
-                skills[ i ] = ( String ) fragment.subSequence( first + 1, last );
-            }
-            previous = last;
-        }
+        List<String> parts = Arrays.asList( fragment.split( ";" ) );
+        parts.stream().filter( s->isDoubleArray( s ) ).forEach( s->System.out.println( s ) );
 
         return skills;
+    }
+
+    private boolean isDoubleArray( String row ){
+
+        long numberOfOpenSqBracket = row.chars().filter( i->i == 93 ).count();
+        if(numberOfOpenSqBracket >= 2) return true;
+        return false;
     }
 
 }
