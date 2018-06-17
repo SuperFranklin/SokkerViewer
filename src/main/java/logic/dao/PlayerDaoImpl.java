@@ -1,7 +1,6 @@
 
 package main.java.logic.dao;
 
-
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -15,7 +14,13 @@ import org.springframework.stereotype.Repository;
 import main.java.logic.entity.Player;
 
 @Repository
-@Transactional
-public class PlayerDaoImpl extends HibernateDaoImpl<Player> implements PlayerDao{
+public class PlayerDaoImpl extends HibernateDaoImpl<Player> implements PlayerDao
+{
 
+	public void savePlayers(Collection<Player> players) {
+		for (Player player : players)
+		{
+			save( player);
+		}
+	}
 }

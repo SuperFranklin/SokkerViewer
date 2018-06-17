@@ -39,9 +39,10 @@ public class PlayerDaoTest {
         player.setHeight( 120 );
         player.setName( "Jaros³aw" );
         player.setSurename( "Araszkiwicz" );
-        player.setPID( 123 );
+        player.setId( 123997 );
         player.setWeight( 90 );
         
         return player;
     }
+    private 
 }

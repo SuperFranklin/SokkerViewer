@@ -4,7 +4,9 @@ import java.util.Collection;
 
 import main.java.logic.entity.Player;
 
-public interface PlayerDao extends HibernateDao<Player>{
+public interface PlayerDao extends HibernateDao<Player>
+{
 
+	public void savePlayers(Collection<Player> players);
 
 }

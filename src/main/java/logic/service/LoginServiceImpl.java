@@ -1,60 +1,68 @@
 
 package main.java.logic.service;
 
-
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import main.java.logic.dao.PlayerDao;
 import main.java.logic.entity.Player;
 
 @Service
-public class LoginServiceImpl implements LoginService{
+public class LoginServiceImpl implements LoginService
+{
 
-    @Autowired
-    private PlayersParserService playersParser;
+	@Autowired
+	private PlayersParserService playersParser;
 
-    private final String MAIN_URL                 = "http://sokker.org/players";
-    private final String LOGIN_INPUT_FIELD_ID = "ilogin";
-    private final String PASSWORD_INPUT_FIELD_ID = "ipassword";
-    private final String SUBMIT_BTN_QUERY_SELECTOR = "button[type='submit']";
+	@Autowired
+	private PlayerDao playerDao;
 
-    @Override
-    public void loginAndInitData( String login, String password ) throws IOException{
+	private final String MAIN_URL = "http://sokker.org/players";
+	private final String LOGIN_INPUT_FIELD_ID = "ilogin";
+	private final String PASSWORD_INPUT_FIELD_ID = "ipassword";
+	private final String SUBMIT_BTN_QUERY_SELECTOR = "button[type='submit']";
 
-        WebClient webClient = login( login, password );
+	@Transactional
+	public void loginAndInitData(String login, String password) throws IOException {
 
-        HtmlPage htmlPlayersPage = webClient.getPage( "http://sokker.org/players" );
+		WebClient webClient = login( login, password);
 
-        List<Player> players = playersParser.getPlayers( htmlPlayersPage );
-        System.out.println( Arrays.toString( players.toArray() ) );
-    }
+		HtmlPage htmlPlayersPage = webClient.getPage( MAIN_URL);
 
-    private WebClient login( String login, String password ) throws IOException, MalformedURLException{
-        WebClient webClient = new WebClient();
-        webClient.getOptions().setJavaScriptEnabled( false );
+		List<Player> players = playersParser.downloadPlayers( htmlPlayersPage);
+		
+		playerDao.savePlayers( players);
+	}
 
-        HtmlPage mainPage = webClient.getPage( MAIN_URL );
+	private WebClient login(String login, String password)
+			throws IOException, MalformedURLException {
+		WebClient webClient = new WebClient();
+		webClient.getOptions().setJavaScriptEnabled( false);
 
-        HtmlInput loginInput = mainPage.getElementByName( LOGIN_INPUT_FIELD_ID );
-        loginInput.setValueAttribute( login );
+		HtmlPage mainPage = webClient.getPage( MAIN_URL);
 
-        HtmlInput passwordInput = mainPage.getElementByName( PASSWORD_INPUT_FIELD_ID );
-        passwordInput.setValueAttribute( password );
+		HtmlInput loginInput = mainPage.getElementByName( LOGIN_INPUT_FIELD_ID);
+		loginInput.setValueAttribute( login);
 
-        HtmlButton submitBtn = ( HtmlButton ) mainPage.querySelectorAll( SUBMIT_BTN_QUERY_SELECTOR ).get( 0 );
-        mainPage = submitBtn.click();
+		HtmlInput passwordInput = mainPage
+				.getElementByName( PASSWORD_INPUT_FIELD_ID);
+		passwordInput.setValueAttribute( password);
 
-        return webClient;
-    }
+		HtmlButton submitBtn = (HtmlButton) mainPage
+				.querySelectorAll( SUBMIT_BTN_QUERY_SELECTOR).get( 0);
+		mainPage = submitBtn.click();
+
+		return webClient;
+	}
 
 }
