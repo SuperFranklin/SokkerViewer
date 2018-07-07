@@ -10,12 +10,13 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import main.java.logic.Interfaces.Identifiable;
 
 @Setter
 @Getter
 @Table(name = "PLAYERSKILLS")
 @Entity
-public class PlayerSkills
+public class PlayerSkills implements Identifiable
 {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,51 +38,51 @@ public class PlayerSkills
 	Integer shoot;
 	Integer form;
 
-	public void setAge(String txt) {
+	public void setAgeAsTxt(String txt) {
 		age = Integer.valueOf( txt);
 	}
 
-	public void setValue(String txt) {
+	public void setValueAsTxt(String txt) {
 		value = Integer.valueOf( txt);
 	}
 
-	public void setSalary(String txt) {
+	public void setSalaryAsTxt(String txt) {
 		salary = Integer.valueOf( txt);
 	}
 
-	public void setCondition(String txt) {
+	public void setConditionAsTxt(String txt) {
 		conditionn = Integer.valueOf( txt);
 	}
 
-	public void setSpeed(String txt) {
+	public void setSpeedAsTxt(String txt) {
 		speed = Integer.valueOf( txt);
 	}
 
-	public void setTechnique(String txt) {
+	public void setTechniqueAsTxt(String txt) {
 		technique = Integer.valueOf( txt);
 	}
 
-	public void setPasses(String txt) {
+	public void setPassesAsTxt(String txt) {
 		passes = Integer.valueOf( txt);
 	}
 
-	public void setGolkeeper(String txt) {
+	public void setGolkeeperAsTxt(String txt) {
 		golkeeper = Integer.valueOf( txt);
 	}
 
-	public void setDefender(String txt) {
+	public void setDefenderAsTxt(String txt) {
 		defender = Integer.valueOf( txt);
 	}
 
-	public void setQuarterback(String txt) {
+	public void setQuarterbackAsTxt(String txt) {
 		quarterback = Integer.valueOf( txt);
 	}
 
-	public void setShot(String txt) {
+	public void setShootAsTxt(String txt) {
 		shoot = Integer.valueOf( txt);
 	}
 
-	public void setForm(String txt) {
+	public void setFormAsTxt(String txt) {
 		form = Integer.valueOf( txt);
 	}
 

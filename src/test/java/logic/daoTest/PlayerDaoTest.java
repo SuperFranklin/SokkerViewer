@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import main.java.logic.dao.PlayerDao;
 import main.java.logic.entity.Player;
 import test.java.configuration.TestConfiguration;
+import test.java.logic.daoTest.Filler.Implementation.PlayerFiller;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,21 +29,11 @@ public class PlayerDaoTest {
     @Transactional
     @Rollback(true)
     public void testAddAndGetPlayer()  {
-        Player createdPlayer = preparePlayer();
-        playerDao.persist( createdPlayer );
+        Player createdPlayer = new PlayerFiller().fill();
+        
+        playerDao.save( createdPlayer );
+        
         assertEquals( playerDao.findOne( createdPlayer.getId() ) , createdPlayer );
     }
     
-    private Player preparePlayer() {
-        Player player = new Player();
-        player.setCountry( "Polska" );
-        player.setHeight( 120 );
-        player.setName( "Jaros³aw" );
-        player.setSurename( "Araszkiwicz" );
-        player.setId( 123997 );
-        player.setWeight( 90 );
-        
-        return player;
-    }
-    private 
 }

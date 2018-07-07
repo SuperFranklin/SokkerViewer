@@ -3,7 +3,6 @@ package main.java.logic.service;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,33 +14,24 @@ import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import main.java.logic.dao.PlayerDao;
-import main.java.logic.entity.Player;
 
 @Service
 public class LoginServiceImpl implements LoginService
 {
-
-	@Autowired
-	private PlayersParserService playersParser;
-
-	@Autowired
-	private PlayerDao playerDao;
-
 	private final String MAIN_URL = "http://sokker.org/players";
 	private final String LOGIN_INPUT_FIELD_ID = "ilogin";
 	private final String PASSWORD_INPUT_FIELD_ID = "ipassword";
 	private final String SUBMIT_BTN_QUERY_SELECTOR = "button[type='submit']";
+	
+	private WebClient webClient;
 
 	@Transactional
-	public void loginAndInitData(String login, String password) throws IOException {
+	public HtmlPage loginAndUpdateDB(String login, String password) throws IOException {
 
-		WebClient webClient = login( login, password);
+		webClient = login( login, password);
 
-		HtmlPage htmlPlayersPage = webClient.getPage( MAIN_URL);
-
-		List<Player> players = playersParser.downloadPlayers( htmlPlayersPage);
+		return webClient.getPage( MAIN_URL);
 		
-		playerDao.savePlayers( players);
 	}
 
 	private WebClient login(String login, String password)

@@ -2,7 +2,7 @@
 package main.java.logic.controller;
 
 
-import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import main.java.logic.entity.Player;
 import main.java.logic.service.LoginService;
-import main.java.logic.utils.Result;
+import main.java.logic.service.PlayersParserService;
 
 
 
@@ -22,6 +25,9 @@ public class LoginController{
 
     @Autowired
     LoginService loginService;
+    
+    @Autowired 
+    PlayersParserService playersParser;
     
     @GetMapping("/")
     public String showRegistrationForm(){
@@ -34,7 +40,9 @@ public class LoginController{
         String password = request.getParameter( "password" );
         
         try{
-            loginService.loginAndInitData( login, password);
+            HtmlPage page = loginService.loginAndUpdateDB( login, password);
+            List<Player> players = playersParser.downloadPlayers( page.asXml() );
+            
         }catch (Exception e){
             e.printStackTrace();
         }

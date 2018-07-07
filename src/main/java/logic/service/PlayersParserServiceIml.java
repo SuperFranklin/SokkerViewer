@@ -22,21 +22,23 @@ import main.java.logic.entity.PlayerSkills;
 public class PlayersParserServiceIml implements PlayersParserService
 {
 
-	public List<Player> downloadPlayers(HtmlPage page) {
+	@Autowired
+	PlayerDao playerDao;
+	public List<Player> downloadPlayers(String page) {
 
 		List<String> fragments = extractTxtPerPlayer( page);
 
 		prepareFragments( fragments);
 
 		List<Player> players = extractPlayers( fragments);
+		
+		playerDao.savePlayers( players);
 
 		return players;
 	}
 
-	private List<String> extractTxtPerPlayer(HtmlPage page) {
+	private List<String> extractTxtPerPlayer(String source) {
 		List<String> fragments = new ArrayList<>();
-
-		String source = page.asXml();
 
 		int previousLastIndex = 0;
 		while (source.indexOf( "if(!playerData)", previousLastIndex) != -1)
@@ -76,17 +78,17 @@ public class PlayersParserServiceIml implements PlayersParserService
 			player.setSurename( skills[1]);
 			player.setId( extractId( fragment));
 
-			playerSkills.setValue( skills[3]);
-			playerSkills.setSalary( skills[4]);
-			playerSkills.setForm( skills[5]);
-			playerSkills.setCondition( skills[6]);
-			playerSkills.setSpeed( skills[7]);
-			playerSkills.setTechnique( skills[8]);
-			playerSkills.setPasses( skills[9]);
-			playerSkills.setGolkeeper( skills[10]);
-			playerSkills.setDefender( skills[11]);
-			playerSkills.setQuarterback( skills[12]);
-			playerSkills.setShot( skills[13]);
+			playerSkills.setValueAsTxt( skills[3]);
+			playerSkills.setSalaryAsTxt( skills[4]);
+			playerSkills.setFormAsTxt( skills[5]);
+			playerSkills.setConditionAsTxt( skills[6]);
+			playerSkills.setSpeedAsTxt( skills[7]);
+			playerSkills.setTechniqueAsTxt( skills[8]);
+			playerSkills.setPassesAsTxt( skills[9]);
+			playerSkills.setGolkeeperAsTxt( skills[10]);
+			playerSkills.setDefenderAsTxt( skills[11]);
+			playerSkills.setQuarterbackAsTxt( skills[12]);
+			playerSkills.setShootAsTxt( skills[13]);
 
 			player.addSkills( playerSkills);
 
