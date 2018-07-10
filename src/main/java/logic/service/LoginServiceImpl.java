@@ -18,28 +18,22 @@ import main.java.logic.dao.PlayerDao;
 @Service
 public class LoginServiceImpl implements LoginService
 {
-	private final String MAIN_URL = "http://sokker.org/players";
 	private final String LOGIN_INPUT_FIELD_ID = "ilogin";
 	private final String PASSWORD_INPUT_FIELD_ID = "ipassword";
 	private final String SUBMIT_BTN_QUERY_SELECTOR = "button[type='submit']";
-	
-	private WebClient webClient;
 
 	@Transactional
-	public HtmlPage loginAndUpdateDB(String login, String password) throws IOException {
-
-		webClient = login( login, password);
-
-		return webClient.getPage( MAIN_URL);
-		
+	public HtmlPage getPage(String login, String password, String url)
+			throws IOException {
+		return login( login, password, url).getPage( url);
 	}
 
-	private WebClient login(String login, String password)
+	private WebClient login(String login, String password, String url)
 			throws IOException, MalformedURLException {
 		WebClient webClient = new WebClient();
 		webClient.getOptions().setJavaScriptEnabled( false);
 
-		HtmlPage mainPage = webClient.getPage( MAIN_URL);
+		HtmlPage mainPage = webClient.getPage( url);
 
 		HtmlInput loginInput = mainPage.getElementByName( LOGIN_INPUT_FIELD_ID);
 		loginInput.setValueAttribute( login);

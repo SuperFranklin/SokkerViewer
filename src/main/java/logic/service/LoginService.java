@@ -6,5 +6,5 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public interface LoginService{
 
-    public HtmlPage loginAndUpdateDB(String login, String password) throws IOException;
+    public HtmlPage getPage(String login, String password, String url) throws IOException;
 }
